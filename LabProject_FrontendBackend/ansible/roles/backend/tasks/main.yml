@@ -1,0 +1,20 @@
+---
+- name: Update YUM cache
+  yum:
+    update_cache: yes
+
+- name: Install Apache HTTPD
+  yum:
+    name: httpd
+    state: present
+
+- name: Enable and start httpd
+  service:
+    name: httpd
+    state: started
+    enabled: true
+
+- name: Create simple index.html
+  copy:
+    dest: /var/www/html/index.html
+    content: "Hello from backend {{ inventory_hostname }}"
